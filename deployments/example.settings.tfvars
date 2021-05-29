@@ -1,0 +1,6 @@
+aws_account_id = "0123456789"
+aws_region = "us-east-1"
+function_name = "hello"
+handler_name = "hello"
+source_bucket = "my_bucket_name"
+source_key = "lambda-hello/hello.zip"
