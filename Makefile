@@ -1,9 +1,9 @@
 .PHONY: compile invoke plan apply
 .DEFAULT_GOAL := help
-VERSION := 0.1.10
+VERSION := 0.0.0
 COMMIT_HASH := $(shell git rev-parse --short HEAD)
 CURRENT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
-MAIN_BRANCH := master
+MAIN_BRANCH := main
 EXECUTABLE := hello
 S3_BUCKET := $(shell grep source_bucket deployments/settings.tfvars | awk -F'\"' '{print $$2}')
 S3_KEY := $(shell grep source_key deployments/settings.tfvars | awk -F'\"' '{print $$2}')
