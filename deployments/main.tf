@@ -40,9 +40,9 @@ resource "aws_iam_role_policy_attachment" "AWSLambdaBasicExecutionRole" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-resource "aws_iam_role_policy_attachment" "AWSLambdaReadOnlyAccess" {
+resource "aws_iam_role_policy_attachment" "AWSLambda_ReadOnlyAccess" {
   role       = aws_iam_role.this.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSLambdaReadOnlyAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AWSLambda_ReadOnlyAccess"
 }
 
 resource "aws_iam_role_policy_attachment" "AWSXrayWriteOnlyAccess" {
@@ -103,7 +103,7 @@ resource "aws_cloudwatch_log_group" "this" {
 }
 
 resource "aws_iam_policy" "lambda_logging" {
-  name        = "lambda_logging"
+  name_prefix        = "${var.function_name}_logging"
   path        = "/"
   description = "IAM policy for logging from a lambda"
 

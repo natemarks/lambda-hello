@@ -19,13 +19,11 @@ variable "custom_tags" {
 variable "function_name" {
   description = "The AWS function name"
   type        = string
-  default = "cassandra-snapshots"
 }
 
 variable "handler_name" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#handler"
   type        = string
-  default = "cassandra-snapshots"
 }
 
 variable "memory_size" {
