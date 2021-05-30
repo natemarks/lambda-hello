@@ -1,6 +1,8 @@
 .PHONY: compile invoke plan apply
 .DEFAULT_GOAL := help
 VERSION := 0.0.1
+PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
+GO_FILES := $(shell find . -name '*.go' | grep -v /vendor/)
 COMMIT_HASH := $(shell git rev-parse --short HEAD)
 CURRENT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 MAIN_BRANCH := main
@@ -58,7 +60,7 @@ invoke: ## invoke the lambda
     out.json
 
 
-bump: clean-venv  ## bump version in main branch
+bump: static clean-venv  ## bump version in main branch
 ifeq ($(CURRENT_BRANCH), $(MAIN_BRANCH))
 	( \
 	   source .venv/bin/activate; \
@@ -69,3 +71,17 @@ else
 	@echo "UNABLE TO BUMP - not on Main branch"
 	$(info Current Branch: $(CURRENT_BRANCH), main: $(MAIN_BRANCH))
 endif
+
+
+test:
+	go test -short ${PKG_LIST}
+
+vet:
+	go vet ${PKG_LIST}
+
+lint:
+	for file in ${GO_FILES} ;  do \
+		golint $$file ; \
+	done
+
+static: vet lint test
