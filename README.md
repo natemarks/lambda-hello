@@ -21,3 +21,6 @@ make invoke
 # review the response
 cat out.json
 ```
+
+The lambda uses zerolog to emit structured log data. This includes a version field. The structured JSON logs are automatically parsed by cloudwatch, so you can filter on the field.  In the exsmple below, we use the default insights query and add the filter to find logs generated with the version tag.  These queries can also be used to generate cloudwatch metrics and alarms. I have a different monitor project that does metrics and alarms(https://github.com/natemarks/lambda-dns-lookup).
+![](cloudwatch_insights_filter_version.png)
