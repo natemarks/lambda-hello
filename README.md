@@ -35,7 +35,7 @@ aws lambda invoke \
     "StatusCode": 200,
     "ExecutedVersion": "$LATEST"
 }
-# Not the unhandled exception is caused byt the new check for  a name in the request
+# Note the unhandled exception is caused byt the new check for  a name in the request
 aws lambda invoke \
     --function-name hello \
     --payload file://test/data/missing_name.json \
