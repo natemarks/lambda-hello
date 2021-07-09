@@ -18,8 +18,33 @@ make tfplan
 make tfapply
 # invoke the lambda, usingrequest.json as the input
 make invoke
-# review the response
-cat out.json
+pattern /...: directory prefix / outside available modules
+aws lambda invoke \
+    --function-name hello \
+    --payload file://test/data/valid.json \
+    valid_out.json
+{
+    "StatusCode": 200,
+    "ExecutedVersion": "$LATEST"
+}
+aws lambda invoke \
+    --function-name hello \
+    --payload file://test/data/missing_age.json \
+    missing_age_out.json
+{
+    "StatusCode": 200,
+    "ExecutedVersion": "$LATEST"
+}
+# Not the unhandled exception is caused byt the new check for  a name in the request
+aws lambda invoke \
+    --function-name hello \
+    --payload file://test/data/missing_name.json \
+    missing_name_out.json
+{
+    "StatusCode": 200,
+    "FunctionError": "Unhandled",
+    "ExecutedVersion": "$LATEST"
+}
 ```
 
 The lambda uses zerolog to emit structured log data. This includes a version field. The structured JSON logs are automatically parsed by cloudwatch, so you can filter on the field.  In the exsmple below, we use the default insights query and add the filter to find logs generated with the version tag.  These queries can also be used to generate cloudwatch metrics and alarms. I have a different monitor project that does metrics and alarms(https://github.com/natemarks/lambda-dns-lookup).

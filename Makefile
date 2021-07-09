@@ -56,8 +56,18 @@ compile: ## delete/rebuild the go binary in  bin/
 invoke: ## invoke the lambda
 	aws lambda invoke \
     --function-name $(EXECUTABLE) \
-    --payload file://request.json \
-    out.json
+    --payload file://test/data/valid.json \
+    valid_out.json
+
+	aws lambda invoke \
+    --function-name $(EXECUTABLE) \
+    --payload file://test/data/missing_age.json \
+    missing_age_out.json
+
+	aws lambda invoke \
+    --function-name $(EXECUTABLE) \
+    --payload file://test/data/missing_name.json \
+    missing_name_out.json
 
 
 bump: static clean-venv  ## bump version in main branch
