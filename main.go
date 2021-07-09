@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -27,6 +28,9 @@ type MyResponse struct {
 // HandleLambdaEvent Lambda entry point
 func HandleLambdaEvent(event MyEvent) (MyResponse, error) {
 	log.Info().Msgf("Starting")
+	if event.Name == "" {
+		return MyResponse{Message: fmt.Sprintf("No name provided")}, errors.New("No name provided")
+	}
 	return MyResponse{Message: fmt.Sprintf("%s is %d years old!", event.Name, event.Age)}, nil
 }
 

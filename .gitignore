@@ -13,3 +13,4 @@ terraform.*
 
 */settings.tfvars
 /out.json
+state.json
