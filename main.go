@@ -10,7 +10,7 @@ import (
 )
 
 // Version executable version
-const Version = "0.0.2"
+const Version = "0.0.3"
 
 var log = zerolog.New(os.Stdout).With().Str("version", Version).Timestamp().Logger()
 

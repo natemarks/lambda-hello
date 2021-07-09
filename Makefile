@@ -1,6 +1,6 @@
 .PHONY: compile invoke plan apply
 .DEFAULT_GOAL := help
-VERSION := 0.0.2
+VERSION := 0.0.3
 PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
 GO_FILES := $(shell find . -name '*.go' | grep -v /vendor/)
 COMMIT_HASH := $(shell git rev-parse --short HEAD)
